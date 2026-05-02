@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.example.taskmanager.models.dto.request.TaskRequestDTO;
 import org.example.taskmanager.models.dto.response.TaskResponseDTO;
 import org.example.taskmanager.services.interfaces.TaskService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

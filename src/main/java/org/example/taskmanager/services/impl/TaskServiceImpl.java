@@ -7,8 +7,6 @@ import org.example.taskmanager.models.dto.response.TaskResponseDTO;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.example.taskmanager.services.interfaces.TaskService;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
