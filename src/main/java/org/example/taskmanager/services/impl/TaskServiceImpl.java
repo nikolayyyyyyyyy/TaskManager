@@ -1,5 +1,6 @@
 package org.example.taskmanager.services.impl;
 
+import org.example.taskmanager.exceptions.ModelHasRelatedModelsException;
 import org.example.taskmanager.exceptions.TaskNotFoundException;
 import org.example.taskmanager.models.Task;
 import org.example.taskmanager.models.dto.request.TaskRequestDTO;
@@ -7,6 +8,7 @@ import org.example.taskmanager.models.dto.response.TaskResponseDTO;
 import org.example.taskmanager.repositories.TaskRepository;
 import org.example.taskmanager.services.interfaces.TaskService;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,8 +57,12 @@ public class TaskServiceImpl implements TaskService {
                 .taskRepository
                 .findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + id));
 
-        taskRepository.delete(task);
-        return modelMapper.map(task, TaskResponseDTO.class);
+        try{
+            taskRepository.delete(task);
+            return modelMapper.map(task, TaskResponseDTO.class);
+        } catch (DataIntegrityViolationException e){
+            throw new ModelHasRelatedModelsException("Model has related models for task with id: " + id);
+        }
     }
 
     @Override
